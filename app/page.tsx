@@ -2,6 +2,13 @@
 
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
+import {
+  makeCapitalizeSentence,
+  makeCapitalizeWord,
+  makeLowercase,
+  makeUppercase,
+} from "@/lib/tools/converters";
+import { makeAlphabeticalSort } from "@/lib/tools/sorter";
 import { Fragment, useState } from "react";
 import { Sidebar } from "./components/sidebar";
 
@@ -13,17 +20,9 @@ export default function Home() {
     setText(event.target.value);
   };
 
-  const makeUppercase = () => setText(text.toUpperCase());
-  const makeLowercase = () => setText(text.toLowerCase());
-  const makeCapitalize = () =>
-    setText(
-      text
-        .toLowerCase()
-        .split(" ")
-        .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-        .join(" ")
-    );
-  const makeAlphabeticalSort = () => setText(text.split(" ").sort().join(" "));
+  const transformText = (fn: (text: string) => string) => {
+    setText(fn(text));
+  };
 
   return (
     <Fragment>
@@ -44,14 +43,23 @@ export default function Home() {
         <div className="space-y-3">
           {toolset === "converters" && (
             <Fragment>
-              <Button onClick={() => makeUppercase()}>Uppercase</Button>
-              <Button onClick={() => makeLowercase()}>Lowercase</Button>
-              <Button onClick={() => makeCapitalize()}>Capitalize</Button>
+              <Button onClick={() => transformText(makeUppercase)}>
+                Uppercase
+              </Button>
+              <Button onClick={() => transformText(makeLowercase)}>
+                Lowercase
+              </Button>
+              <Button onClick={() => transformText(makeCapitalizeWord)}>
+                Capitalize [Word]
+              </Button>
+              <Button onClick={() => transformText(makeCapitalizeSentence)}>
+                Capitalize [Sentence]
+              </Button>
             </Fragment>
           )}
           {toolset === "sorters" && (
             <Fragment>
-              <Button onClick={() => makeAlphabeticalSort()}>
+              <Button onClick={() => transformText(makeAlphabeticalSort)}>
                 Sort Alphabetically
               </Button>
             </Fragment>
