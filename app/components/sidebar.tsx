@@ -1,46 +1,54 @@
-import { useEffect, useState } from "react";
-import { cn } from "@/lib/utils";
-import Link from "next/link";
+"use client";
+
+import { CompactState } from "@/types/compactState";
+import { usePathname } from "next/navigation";
 
 interface SidebarProps {
   className?: string;
+  toolset: CompactState<string>;
 }
 
-export const Sidebar = ({ className }: SidebarProps) => {
-  const [isOpen, setIsOpen] = useState(false);
+const toolCollections = [
+  {
+    name: "Converters",
+    value: "converters",
+  },
+  {
+    name: "Sorters",
+    value: "sorters",
+  },
+  {
+    name: "Generators",
+    value: "generators",
+  },
+  {
+    name: "Extractors",
+    value: "extractors",
+  },
+];
 
-  useEffect(() => {
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") {
-        setIsOpen(false);
-      }
-    };
-    window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
-  }, []);
-
+export const Sidebar = ({ className, toolset }: SidebarProps) => {
   return (
-    <div
-      className={cn(
-        "fixed inset-0 z-10 flex flex-col justify-between bg-background pb-12 pt-16 pl-4 pr-4 transition-opacity duration-500 ease-in-out",
-        isOpen ? "opacity-100" : "opacity-0",
-        className
-      )}
-    >
-      <div className="flex flex-col space-y-4">
-        <Link href="/">
-          <a className="text-2xl font-bold">Home</a>
-        </Link>
-        <Link href="/about">
-          <a className="text-2xl font-bold">About</a>
-        </Link>
-      </div>
-      <button
-        className="fixed top-4 right-4 rounded-full bg-main p-2 text-3xl"
-        onClick={() => setIsOpen((prev) => !prev)}
-      >
-        {isOpen ? <>&times;</> : <>&#9776;</>}
-      </button>
+    <div className={`border-e-4 border-border bg-white ${className}`}>
+      <ul>
+        <span className="block text-text text-center text-2xl font-bold border-b-2 border-border p-3">
+          Tools
+        </span>
+        {toolCollections.map((toolCollection) => (
+          <li key={toolCollection.name}>
+            <div
+              className={`block text-text border-b-2 border-border p-3 hover:bg-yellow-100 text-center cursor-pointer ${
+                toolCollection.value === toolset.value
+                  ? "bg-main hover:bg-main"
+                  : ""
+              }`}
+              onClick={() => toolset.set(toolCollection.value)}
+            >
+              {toolCollection.name}
+            </div>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 };

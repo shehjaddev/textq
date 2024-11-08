@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import "./globals.css";
 import { Share_Tech } from "next/font/google";
+import "./globals.css";
 
 const font = Share_Tech({ weight: "400", subsets: ["latin"] });
 
@@ -16,7 +16,16 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={font.className}>{children}</body>
+      <body className={font.className}>
+        <div className="h-screen flex flex-col">
+          <div className="p-3 border-b-4 border-border text-center text-text text-2xl font-bold bg-main">
+            Text Tweak
+          </div>
+          <div className="flex-grow grid grid-cols-[1fr,6fr,1fr] overflow-y-auto">
+            {children}
+          </div>
+        </div>
+      </body>
     </html>
   );
 }
