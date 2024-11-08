@@ -38,7 +38,17 @@ export default function Home() {
           onChange={handleTextChange}
           placeholder="Type or paste your text here"
         />
-        <Button onClick={() => setText("")}>Clear</Button>
+        <div className="flex flex-col space-y-3">
+          <Button
+            onClick={() => {
+              navigator.clipboard.writeText(text);
+              alert("Text copied to clipboard");
+            }}
+          >
+            Copy
+          </Button>
+          <Button onClick={() => setText("")}>Clear</Button>
+        </div>
       </div>
       <div className="flex justify-center p-8">
         <div className="space-y-3">
