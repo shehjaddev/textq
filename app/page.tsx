@@ -32,34 +32,50 @@ export default function Home() {
           set: setToolset,
         }}
       />
-      <div className="p-8 border-e-4 border-border flex justify-center">
+      <div className="p-8 border-e-4 border-border flex justify-center space-x-4">
         <Textarea
           value={text}
           onChange={handleTextChange}
           placeholder="Type or paste your text here"
         />
+        <Button onClick={() => setText("")}>Clear</Button>
       </div>
       <div className="flex justify-center p-8">
         <div className="space-y-3">
           {toolset === "converters" && (
             <Fragment>
-              <Button onClick={() => transformText(makeUppercase)}>
+              <Button
+                className="w-full"
+                onClick={() => transformText(makeUppercase)}
+              >
                 Uppercase
               </Button>
-              <Button onClick={() => transformText(makeLowercase)}>
+              <Button
+                className="w-full"
+                onClick={() => transformText(makeLowercase)}
+              >
                 Lowercase
               </Button>
-              <Button onClick={() => transformText(makeCapitalizeWord)}>
+              <Button
+                className="w-full"
+                onClick={() => transformText(makeCapitalizeWord)}
+              >
                 Capitalize [Word]
               </Button>
-              <Button onClick={() => transformText(makeCapitalizeSentence)}>
+              <Button
+                className="w-full"
+                onClick={() => transformText(makeCapitalizeSentence)}
+              >
                 Capitalize [Sentence]
               </Button>
             </Fragment>
           )}
           {toolset === "sorters" && (
             <Fragment>
-              <Button onClick={() => transformText(makeAlphabeticalSort)}>
+              <Button
+                className="w-full"
+                onClick={() => transformText(makeAlphabeticalSort)}
+              >
                 Sort Alphabetically
               </Button>
             </Fragment>
