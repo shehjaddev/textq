@@ -8,7 +8,12 @@ import {
   makeLowercase,
   makeUppercase,
 } from "@/lib/tools/converters";
-import { makeAlphabeticalSort } from "@/lib/tools/sorter";
+import {
+  makeAscendingLineSort,
+  makeAscendingWordSort,
+  makeDescendingLineSort,
+  makeDescendingWordSort,
+} from "@/lib/tools/sorter";
 import { Fragment, useState } from "react";
 import { Sidebar } from "./components/sidebar";
 
@@ -84,9 +89,27 @@ export default function Home() {
             <Fragment>
               <Button
                 className="w-full"
-                onClick={() => transformText(makeAlphabeticalSort)}
+                onClick={() => transformText(makeAscendingWordSort)}
               >
-                Sort Alphabetically
+                Ascending [Word]
+              </Button>
+              <Button
+                className="w-full"
+                onClick={() => transformText(makeDescendingWordSort)}
+              >
+                Descending [Word]
+              </Button>
+              <Button
+                className="w-full"
+                onClick={() => transformText(makeAscendingLineSort)}
+              >
+                Ascending [Line]
+              </Button>
+              <Button
+                className="w-full"
+                onClick={() => transformText(makeDescendingLineSort)}
+              >
+                Descending [Line]
               </Button>
             </Fragment>
           )}
