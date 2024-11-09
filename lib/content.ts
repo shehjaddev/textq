@@ -1,3 +1,3 @@
 export const content = {
-  projectName: "Text Tweak",
+  projectName: "Texturtle",
 };
