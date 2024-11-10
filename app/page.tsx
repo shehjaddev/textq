@@ -14,6 +14,15 @@ import {
   countSentences,
   countWords,
 } from "@/lib/tools/counters";
+import { extractEmails, extractURLs } from "@/lib/tools/extractors";
+import {
+  generateCUID,
+  generateCUID2,
+  generateEmail,
+  generateGmail,
+  generatePassword,
+  generateUUID,
+} from "@/lib/tools/generators";
 import {
   makeAscendingLineSort,
   makeAscendingWordSort,
@@ -134,6 +143,41 @@ export default function Home() {
               </Button>
               <Button className="w-full" onClick={() => apply(countLines)}>
                 Lines
+              </Button>
+            </Fragment>
+          )}
+          {toolset === "generators" && (
+            <Fragment>
+              <Button className="w-full" onClick={() => apply(generateUUID)}>
+                UUID
+              </Button>
+              <Button className="w-full" onClick={() => apply(generateCUID)}>
+                CUID
+              </Button>
+              <Button className="w-full" onClick={() => apply(generateCUID2)}>
+                CUID2
+              </Button>
+              <Button className="w-full" onClick={() => apply(generateEmail)}>
+                Email
+              </Button>
+              <Button className="w-full" onClick={() => apply(generateGmail)}>
+                Gmail
+              </Button>
+              <Button
+                className="w-full"
+                onClick={() => apply(generatePassword)}
+              >
+                Password
+              </Button>
+            </Fragment>
+          )}
+          {toolset === "extractors" && (
+            <Fragment>
+              <Button className="w-full" onClick={() => apply(extractEmails)}>
+                Email
+              </Button>
+              <Button className="w-full" onClick={() => apply(extractURLs)}>
+                URL
               </Button>
             </Fragment>
           )}
