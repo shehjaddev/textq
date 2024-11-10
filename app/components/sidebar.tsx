@@ -18,6 +18,10 @@ const toolCollections = [
     value: "sorters",
   },
   {
+    name: "Counters",
+    value: "counters",
+  },
+  {
     name: "Generators",
     value: "generators",
   },

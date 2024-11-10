@@ -9,11 +9,19 @@ import {
   makeUppercase,
 } from "@/lib/tools/converters";
 import {
+  countCharacters,
+  countLines,
+  countSentences,
+  countWords,
+} from "@/lib/tools/counters";
+import {
   makeAscendingLineSort,
   makeAscendingWordSort,
   makeDescendingLineSort,
   makeDescendingWordSort,
-} from "@/lib/tools/sorter";
+  makeReverseLine,
+  makeShuffle,
+} from "@/lib/tools/sorters";
 import { Fragment, useState } from "react";
 import { Sidebar } from "./components/sidebar";
 
@@ -25,7 +33,7 @@ export default function Home() {
     setText(event.target.value);
   };
 
-  const transformText = (fn: (text: string) => string) => {
+  const apply = (fn: (text: string) => string) => {
     setText(fn(text));
   };
 
@@ -59,27 +67,21 @@ export default function Home() {
         <div className="space-y-3">
           {toolset === "converters" && (
             <Fragment>
-              <Button
-                className="w-full"
-                onClick={() => transformText(makeUppercase)}
-              >
+              <Button className="w-full" onClick={() => apply(makeUppercase)}>
                 Uppercase
               </Button>
-              <Button
-                className="w-full"
-                onClick={() => transformText(makeLowercase)}
-              >
+              <Button className="w-full" onClick={() => apply(makeLowercase)}>
                 Lowercase
               </Button>
               <Button
                 className="w-full"
-                onClick={() => transformText(makeCapitalizeWord)}
+                onClick={() => apply(makeCapitalizeWord)}
               >
                 Capitalize [Word]
               </Button>
               <Button
                 className="w-full"
-                onClick={() => transformText(makeCapitalizeSentence)}
+                onClick={() => apply(makeCapitalizeSentence)}
               >
                 Capitalize [Sentence]
               </Button>
@@ -89,27 +91,49 @@ export default function Home() {
             <Fragment>
               <Button
                 className="w-full"
-                onClick={() => transformText(makeAscendingWordSort)}
+                onClick={() => apply(makeAscendingWordSort)}
               >
                 Ascending [Word]
               </Button>
               <Button
                 className="w-full"
-                onClick={() => transformText(makeDescendingWordSort)}
+                onClick={() => apply(makeDescendingWordSort)}
               >
                 Descending [Word]
               </Button>
               <Button
                 className="w-full"
-                onClick={() => transformText(makeAscendingLineSort)}
+                onClick={() => apply(makeAscendingLineSort)}
               >
                 Ascending [Line]
               </Button>
               <Button
                 className="w-full"
-                onClick={() => transformText(makeDescendingLineSort)}
+                onClick={() => apply(makeDescendingLineSort)}
               >
                 Descending [Line]
+              </Button>
+              <Button className="w-full" onClick={() => apply(makeReverseLine)}>
+                Reverse [Line]
+              </Button>
+              <Button className="w-full" onClick={() => apply(makeShuffle)}>
+                Shuffle
+              </Button>
+            </Fragment>
+          )}
+          {toolset === "counters" && (
+            <Fragment>
+              <Button className="w-full" onClick={() => apply(countCharacters)}>
+                Characters
+              </Button>
+              <Button className="w-full" onClick={() => apply(countWords)}>
+                Words
+              </Button>
+              <Button className="w-full" onClick={() => apply(countSentences)}>
+                Sentences
+              </Button>
+              <Button className="w-full" onClick={() => apply(countLines)}>
+                Lines
               </Button>
             </Fragment>
           )}
