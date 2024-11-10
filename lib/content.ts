@@ -1,3 +1,3 @@
 export const content = {
-  projectName: "Texturtle",
+  projectName: "TextQ",
 };
