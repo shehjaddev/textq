@@ -31,12 +31,13 @@ import {
   makeReverseLine,
   makeShuffle,
 } from "@/lib/tools/sorters";
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { Sidebar } from "./components/sidebar";
 
 export default function Home() {
   const [text, setText] = useState("");
   const [toolset, setToolset] = useState("converters");
+  const [isCopied, setIsCopied] = useState(false);
 
   const handleTextChange = (event: any) => {
     setText(event.target.value);
@@ -45,6 +46,14 @@ export default function Home() {
   const apply = (fn: (text: string) => string) => {
     setText(fn(text));
   };
+
+  useEffect(() => {
+    if (isCopied) {
+      setTimeout(() => {
+        setIsCopied(false);
+      }, 2000);
+    }
+  }, [isCopied]);
 
   return (
     <Fragment>
@@ -62,14 +71,17 @@ export default function Home() {
         />
         <div className="flex flex-col space-y-3">
           <Button
+            className="w-[75px]"
             onClick={() => {
               navigator.clipboard.writeText(text);
-              alert("Text copied to clipboard");
+              setIsCopied(true);
             }}
           >
-            Copy
+            {isCopied ? "Copied!" : "Copy"}
           </Button>
-          <Button onClick={() => setText("")}>Clear</Button>
+          <Button className="w-[75px]" onClick={() => setText("")}>
+            Clear
+          </Button>
         </div>
       </div>
       <div className="flex justify-center p-8">
