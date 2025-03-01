@@ -16,6 +16,12 @@ import {
 } from "@/lib/tools/counters";
 import { extractEmails, extractURLs } from "@/lib/tools/extractors";
 import {
+  generate10CUID2s,
+  generate10CUIDs,
+  generate10Emails,
+  generate10Gmails,
+  generate10Passwords,
+  generate10UUIDs,
   generateCUID,
   generateCUID2,
   generateEmail,
@@ -47,8 +53,14 @@ export default function Home() {
     setText(fn(text));
   };
 
+  const applyAndCopy = (fn: (text: string) => string) => {
+    setText(fn(text));
+    setIsCopied(true);
+  };
+
   useEffect(() => {
     if (isCopied) {
+      navigator.clipboard.writeText(text);
       setTimeout(() => {
         setIsCopied(false);
       }, 2000);
@@ -73,7 +85,6 @@ export default function Home() {
           <Button
             className="w-[75px]"
             onClick={() => {
-              navigator.clipboard.writeText(text);
               setIsCopied(true);
             }}
           >
@@ -160,27 +171,60 @@ export default function Home() {
           )}
           {toolset === "generators" && (
             <Fragment>
-              <Button className="w-full" onClick={() => apply(generateUUID)}>
-                UUID
-              </Button>
-              <Button className="w-full" onClick={() => apply(generateCUID)}>
-                CUID
-              </Button>
-              <Button className="w-full" onClick={() => apply(generateCUID2)}>
-                CUID2
-              </Button>
-              <Button className="w-full" onClick={() => apply(generateEmail)}>
-                Email
-              </Button>
-              <Button className="w-full" onClick={() => apply(generateGmail)}>
-                Gmail
-              </Button>
-              <Button
-                className="w-full"
-                onClick={() => apply(generatePassword)}
-              >
-                Password
-              </Button>
+              <div className="flex justify-between space-x-2">
+                <Button
+                  className="w-full"
+                  onClick={() => applyAndCopy(generateUUID)}
+                >
+                  UUID
+                </Button>
+                <Button onClick={() => apply(generate10UUIDs)}>10x</Button>
+              </div>
+              <div className="flex justify-between space-x-2">
+                <Button
+                  className="w-full"
+                  onClick={() => applyAndCopy(generateCUID)}
+                >
+                  CUID
+                </Button>
+                <Button onClick={() => apply(generate10CUIDs)}>10x</Button>
+              </div>
+              <div className="flex justify-between space-x-2">
+                <Button
+                  className="w-full"
+                  onClick={() => applyAndCopy(generateCUID2)}
+                >
+                  CUID2
+                </Button>
+                <Button onClick={() => apply(generate10CUID2s)}>10x</Button>
+              </div>
+              <div className="flex justify-between space-x-2">
+                <Button
+                  className="w-full"
+                  onClick={() => applyAndCopy(generateEmail)}
+                >
+                  Email
+                </Button>
+                <Button onClick={() => apply(generate10Emails)}>10x</Button>
+              </div>
+              <div className="flex justify-between space-x-2">
+                <Button
+                  className="w-full"
+                  onClick={() => applyAndCopy(generateGmail)}
+                >
+                  Gmail
+                </Button>
+                <Button onClick={() => apply(generate10Gmails)}>10x</Button>
+              </div>
+              <div className="flex justify-between space-x-2">
+                <Button
+                  className="w-full"
+                  onClick={() => applyAndCopy(generatePassword)}
+                >
+                  Password
+                </Button>
+                <Button onClick={() => apply(generate10Passwords)}>10x</Button>
+              </div>
             </Fragment>
           )}
           {toolset === "extractors" && (
